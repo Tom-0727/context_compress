@@ -1,0 +1,5 @@
+my_config.yaml
+cache/
+AGENTS.md
+__pycache__/
+.DS_Store
