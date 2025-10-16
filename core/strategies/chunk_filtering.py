@@ -1,5 +1,6 @@
 """策略B: 基于块过滤的压缩策略。"""
 
+import time
 import json
 from pathlib import Path
 from typing import List, Tuple
@@ -30,7 +31,6 @@ class ChunkFilteringStrategy(CompressionStrategy):
         search_results: List[Tuple[str, str]],
     ) -> None:
         """对搜索结果进行 chunking，过滤相关块并累积到知识库。"""
-        import time
 
         start_time = time.time()
         chunk_pairs = self._chunk_and_store(search_results)

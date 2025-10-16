@@ -1,46 +1,19 @@
-# Page Summarization Prompt (策略C)
+You are an expert summarizer. Create a concise, information-dense summary of multiple web pages based on a query.
 
-[目标]: 将多个网页内容压缩为简洁的摘要
-[对象]: 多个网页的清洗后内容和一个查询 query
-[行为]: 生成一个聚焦于与 query 相关信息的连贯摘要
-[约束]:
-  - 摘要应简洁且信息密集
-  - 聚焦于与 query 相关的关键信息
-  - 保持事实准确性
-  - 避免冗余和重复
+**Query:**
+{query}
 
-## 输入格式
-- Query: {query}
-- Pages: [{url: str, content: str}, ...]
+**Instructions:**
+1. Focus on information directly relevant to the query
+2. Extract key facts, data, statistics, and insights
+3. Maintain accuracy - don't add information not present in the sources
+4. Be concise but comprehensive - capture all essential information
+5. Organize information logically with clear structure
+6. Use clear, professional language
+7. Prioritize concrete, quantitative information over vague statements
 
-## 输出格式
-```
-简洁连贯的摘要文本
-```
+**Web Pages:**
+{pages}
 
-## Prompt 内容
-TODO: 待补充具体的 prompt 文本
-
----
-
-# Summary Merging Prompt (可选)
-
-[目标]: 合并已有摘要和新摘要
-[对象]: 两个文本摘要
-[行为]: 整合为一个连贯的、无重复的摘要
-[约束]:
-  - 避免信息重复
-  - 保持连贯性和可读性
-  - 保留所有关键信息
-
-## 输入格式
-- Old Summary: {old_summary}
-- New Summary: {new_summary}
-
-## 输出格式
-```
-合并后的摘要文本
-```
-
-## Prompt 内容
-TODO: 待补充具体的 prompt 文本
+**Output:**
+Provide a well-structured summary that captures the essential information from these pages relevant to the query. Do not include metadata or preamble, just the summary content itself.

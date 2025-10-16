@@ -16,6 +16,7 @@ class CompressionStrategy(ABC):
     def __init__(self) -> None:
         """初始化策略实例，创建空的 chunk_store 和 knowledge_base。"""
         self.chunk_store: Dict[str, str] = {}
+        self.chunk_url_map: Dict[str, str] = {}  # chunk_id -> url 映射
         self.knowledge_base: KnowledgeBase = self._init_knowledge_base()
 
     @abstractmethod
@@ -91,6 +92,7 @@ class CompressionStrategy(ABC):
             for index, chunk_text in enumerate(chunks):
                 chunk_id = self._generate_chunk_id(url, index)
                 self.chunk_store[chunk_id] = chunk_text
+                self.chunk_url_map[chunk_id] = url  # 存储 chunk_id 到 url 的映射
                 chunk_pairs.append((chunk_id, chunk_text))
 
         return chunk_pairs

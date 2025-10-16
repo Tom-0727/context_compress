@@ -1,29 +1,48 @@
-# Fact Extraction Prompt (策略A)
+You are an expert information analyst. Extract high-quality, structured facts from text chunks based on a query.
 
-[目标]: 从文本块中提取与查询相关的结构化事实
-[对象]: 一组文本 chunks 和一个查询 query
-[行为]: 识别与 query 相关的关键事实，为每个事实标注来源 chunk_ids
-[约束]:
-  - 每个事实应简洁（1-2句话）
-  - 必须标注事实来源的 chunk_id
-  - 只提取与 query 明确相关的信息
-  - 输出格式应为结构化的 JSON
+**Query:**
+{query}
 
-## 输入格式
-- Query: {query}
-- Chunks: [{chunk_id: str, text: str}, ...]
+**What is a "Fact"?**
+A fact should be specific, verifiable, and valuable. It must have at least one of these characteristics:
+- **Quantitative**: Contains specific numbers, percentages, dates, amounts (e.g., "average annual income of 87,000 yuan")
+- **Definitional**: Defines a key concept or standard (e.g., "the international standard for middle class is...")
+- **Attributed**: Clearly states the source or holder of the view (e.g., "according to National Bureau of Statistics...")
+- **Conclusive**: Expresses causal relationships, trends, or judgments (e.g., "high housing prices are the main reason for declining savings rates")
 
-## 输出格式
+**Instructions:**
+1. Review each chunk carefully
+2. Extract ONLY facts that are:
+   - Directly relevant to the query
+   - Concrete and specific (avoid vague statements like "there are many...")
+   - Well-supported by the chunk content
+3. For each fact:
+   - Write a concise summary (1-2 sentences)
+   - Include all chunk indices that support this fact
+   - If multiple chunks support the same fact, merge them into one fact entry
+4. Prioritize facts with numbers, sources, or clear attributions
+5. Aim for quality over quantity - extract only the most valuable facts
+
+**Chunks to analyze:**
+{chunks}
+
+**Output format:**
+Return a JSON array where each fact has:
+- "summary": The fact description (prioritize quantitative/attributed facts)
+- "chunk_indices": Array of integers representing chunk indices that support this fact
+
+Example:
 ```json
 [
-  {
-    "summary": "事实描述",
-    "chunk_ids": ["chunk_id_1", "chunk_id_2"],
-    "source_url": "来源URL"
-  },
-  ...
+  {{
+    "summary": "According to the National Bureau of Statistics 2023 report, China's middle-class population reached 400 million, accounting for 28% of the total population.",
+    "chunk_indices": [0, 1]
+  }},
+  {{
+    "summary": "The international standard for middle class is defined as household annual income between $25,000 and $75,000.",
+    "chunk_indices": [3]
+  }}
 ]
 ```
 
-## Prompt 内容
-TODO: 待补充具体的 prompt 文本
+If no high-quality facts are found, return an empty array: []

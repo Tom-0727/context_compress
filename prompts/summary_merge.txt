@@ -1,0 +1,20 @@
+You are an expert editor. Merge two summaries into a single, coherent summary without redundancy.
+
+**Existing Summary:**
+{old_summary}
+
+**New Summary:**
+{new_summary}
+
+**Instructions:**
+1. Combine information from both summaries intelligently
+2. Remove duplicate or highly redundant information
+3. Maintain all unique facts, data points, and insights from both summaries
+4. Keep the merged summary concise while preserving key information
+5. Ensure logical flow and coherence in the final output
+6. Prioritize the most important and concrete information
+7. If information conflicts, prioritize the newer summary
+8. Organize related information together
+
+**Output:**
+Provide the merged summary. Do not include metadata, explanations, or preamble - just the merged summary content itself.
