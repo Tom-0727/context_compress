@@ -11,14 +11,7 @@ CHAR_LIMIT = 500  # 单个块最大字符数
 
 def chunk_documents(text: str) -> List[str]:
     """将文本按句子分割并按字符阈值聚合成块。
-
-    [目标]: 将长文本切分为适合 LLM 处理的固定大小文本块。
-    [对象]: 输入的原始文本字符串。
     [行为]: 使用 nltk 的句子分词器将文本拆分为句子，然后按 CHAR_LIMIT 阈值聚合句子。
-    [约束]:
-        - 每个块不超过 CHAR_LIMIT 字符（默认 500）
-        - 句子不会被截断，完整句子会被分配到同一个块中
-        - 需要 nltk 库及其 punkt/punkt_tab 资源
 
     Args:
         text: 待分块的文本内容
@@ -36,14 +29,7 @@ def chunk_documents(text: str) -> List[str]:
 
 def merge_segments(segments: Iterable[str], char_limit: int) -> List[str]:
     """按字符阈值累积基础分段，超出阈值立即落盘。
-
-    [目标]: 将小的文本片段合并成不超过字符限制的较大块。
-    [对象]: 可迭代的文本片段序列。
     [行为]: 累积片段直到达到字符限制，然后创建新块；片段之间用换行符连接。
-    [约束]:
-        - 单个块的字符数不超过 char_limit
-        - 空片段会被跳过
-        - 片段之间用换行符 '\n' 连接
 
     Args:
         segments: 文本片段的可迭代对象
@@ -81,13 +67,7 @@ def merge_segments(segments: Iterable[str], char_limit: int) -> List[str]:
 def ensure_sentence_tokenizer() -> Callable[[str], List[str]]:
     """确保句子分割器可用，缺少资源时尝试下载 punkt 与 punkt_tab。
 
-    [目标]: 提供可靠的句子分词功能，自动处理依赖下载。
-    [对象]: nltk 的 sent_tokenize 函数。
     [行为]: 检查 nltk 是否安装及其资源是否可用；如果资源缺失则自动下载。
-    [约束]:
-        - 需要已安装 nltk 库
-        - 需要能够访问 nltk 的数据下载服务
-        - 下载失败时抛出 SystemExit
 
     Returns:
         nltk 的 sent_tokenize 函数
