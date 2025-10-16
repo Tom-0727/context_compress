@@ -1,0 +1,29 @@
+# Fact Extraction Prompt (策略A)
+
+[目标]: 从文本块中提取与查询相关的结构化事实
+[对象]: 一组文本 chunks 和一个查询 query
+[行为]: 识别与 query 相关的关键事实，为每个事实标注来源 chunk_ids
+[约束]:
+  - 每个事实应简洁（1-2句话）
+  - 必须标注事实来源的 chunk_id
+  - 只提取与 query 明确相关的信息
+  - 输出格式应为结构化的 JSON
+
+## 输入格式
+- Query: {query}
+- Chunks: [{chunk_id: str, text: str}, ...]
+
+## 输出格式
+```json
+[
+  {
+    "summary": "事实描述",
+    "chunk_ids": ["chunk_id_1", "chunk_id_2"],
+    "source_url": "来源URL"
+  },
+  ...
+]
+```
+
+## Prompt 内容
+TODO: 待补充具体的 prompt 文本

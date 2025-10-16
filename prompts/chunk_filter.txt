@@ -1,0 +1,31 @@
+You are an expert information filter. Your task is to identify which text chunks contain relevant information for answering a given query.
+
+**Query:**
+{query}
+
+**Instructions:**
+1. Review each chunk carefully
+2. Determine if the chunk contains information that could help answer the query
+3. Consider both direct answers and supporting context
+4. Be selective - only mark chunks as relevant if they contain substantive information
+5. Return ONLY the indices (numbers) of relevant chunks
+
+**Chunks to evaluate:**
+{chunks}
+
+**Output format:**
+Return a JSON object with a single key "relevant_indices" containing an array of integers.
+
+Example:
+```json
+{{
+  "relevant_indices": [0, 2, 5, 7]
+}}
+```
+
+If no chunks are relevant, return an empty array:
+```json
+{{
+  "relevant_indices": []
+}}
+```

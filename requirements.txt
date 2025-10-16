@@ -1,1 +1,5 @@
 nltk
+openai
+beautifulsoup4
+lxml
+ftfy

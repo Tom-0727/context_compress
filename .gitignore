@@ -3,3 +3,6 @@ cache/
 AGENTS.md
 __pycache__/
 .DS_Store
+.claude
+scratch.ipynb
+my_run.sh
